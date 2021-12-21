@@ -194,10 +194,75 @@ func main() {
 	fmt.Println(firstname3, secondname3)
 
 	//call function from the other file
-	sayHello("mario")
+	// sayHello("mario")
 
-	showScore()
+	// showScore()
 
+	//map
+	menu := map[string]float64{ //specify the type of the keys in [], specify the values outside brackets
+		"soup":           4.99,
+		"pie":            7.99,
+		"salad":          6.99,
+		"toffee pudding": 3.55, //put the comma also after the last one, otherwise it will give the error
+	}
+	fmt.Println(menu)
+	fmt.Println(menu["pie"]) //get the value of one of the items, make sure the key you enter the type is the same as you declared to get the value out
+
+	//you can loop through the map
+	for key, value := range menu { //instead of index and value, this time is key and value
+		fmt.Println(key, "-", value)
+	}
+
+	//ints as key type
+	phonebook := map[int]string{
+		123456789: "mario",
+		111222333: "luigi",
+		456734566: "peach",
+	}
+	fmt.Println(phonebook)
+	fmt.Println(phonebook[123456789]) //get mario
+
+	//update an item inside the map
+	phonebook[111222333] = "bowser" //update the luigi to bowser
+	fmt.Println(phonebook)
+
+	phonebook[456734566] = "yoshi"
+	fmt.Println(phonebook)
+
+	//group 1 types (non-pointer values) -> string, ints, bools, floats, arrays, structs
+	name := "tifa"
+
+	updateName(name) //the value of variable name above is not going to be changed inside the function
+	//everytime we pass a value or variable into a function, Go creates a copy of the variable, and then inside the function
+	//we are actually updating the copy of the variable, not the original one that we defined above before the function called
+	fmt.Println(name)
+
+	//if you really want to update the original variable
+	name = updateSecName(name) //return the value from the function and overwrite the variable value
+	fmt.Println(name)
+
+	//group 2 types (pointer wrapper values) -> maps, slices, functions
+	newMenu := map[string]float64{
+		"pie":       5.95,
+		"ice cream": 3.99,
+	}
+
+	updateMenu(newMenu) //the new element from the function is added in the map which change the original value of map
+	fmt.Println(newMenu)
+
+}
+
+func updateMenu(y map[string]float64) {
+	y["coffee"] = 2.99
+}
+
+func updateName(x string) {
+	x = "wedge"
+}
+
+func updateSecName(x string) string {
+	x = "wedge"
+	return x
 }
 
 //function with return value
