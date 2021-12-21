@@ -86,4 +86,43 @@ func main() {
 	var str = fmt.Sprintf("my age is %v and my name is %v \n", 35, "Nobody") //return formatted string and stored into the variable
 	fmt.Println("the saved string is", str)
 
+	//array declaration
+	var ages [3]int = [3]int{20, 25, 30} //three items inside the array
+	var ages2 = [4]int{20, 25, 30, 40}   //Go can also infer the type for the array
+
+	fmt.Println(ages, ages2)
+	//can also print out the length of the array
+	fmt.Println(len(ages), len(ages2))
+
+	//shorthand
+	names := [5]string{"yoshi", "mario", "peach", "bowser", "nobody"}
+	fmt.Println(names, len(names))
+
+	//change the value
+	names[1] = "luigi" //change mario to luigi
+	fmt.Println(names, len(names))
+
+	//slices (still use the array type under the hood)
+	var scores = []int{100, 50, 60} //this time, you do not place number inside the square brackets which it will create the slice, not array
+
+	//change the value
+	scores[2] = 25 //change 60 to 25
+	//append the item to the slice (it is not doable in array type)
+	/*
+		note: append() is not change the scores variable, it is going to return a new slice
+		so if you want to update it with the new slice, you have to say "scores = append(...)"
+		so you are overwritting this scores variable with a new slice
+	*/
+	scores = append(scores, 85) //append 85 to the scores slice
+	fmt.Println(scores, len(scores))
+
+	//slice range (is a way to get a range of elements from an existing array or slice and store them in new slice)
+	rangeOne := names[1:3]  //go from position one to three, position three is excluded
+	rangeTwo := names[2:]   //go from position two and to the end of the slice
+	rangeThree := names[:3] //go from the start and get up to the position three but position three is excluded
+	fmt.Println(rangeOne, rangeTwo, rangeThree)
+
+	//you can append these ranges as well because they are stored as slices
+	rangeOne = append(rangeOne, "koopa")
+	fmt.Println(rangeOne)
 }
