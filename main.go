@@ -15,7 +15,11 @@ package main //every go file will be part of a package which is a collection of 
 the standard library contains packages for all kinds of different functionality
 fmt package if for formatting string and printing the messages to console
 */
-import "fmt" //importing packages from the go standard library
+import (
+	"fmt" //importing packages from the go standard library
+	"math"
+	"strings"
+)
 
 //function declaration
 //main() is the entry point of the application
@@ -160,4 +164,73 @@ func main() {
 		e.g., for index, _ (if you just want to use the index)
 	*/
 
+	//call function inside main
+	sayGreeting("mario")
+	sayGreeting("luigi")
+	sayBye("mario")
+
+	namesTwo := []string{"adik", "kakak", "abang"}
+	//the function will be invoked inside the cycleNames function
+	cycleNames(namesTwo, sayGreeting) //we dont invoke the function here, we pass it as reference of the function
+	cycleNames(namesTwo, sayBye)
+
+	a1 := circleArea(10.5) //the function is called and return a value and store inside a1
+	a2 := circleArea(15)
+	fmt.Printf("the circle 1 is %0.2f and the circle 2 is %0.2f\n", a1, a2)
+
+	//since returning two values, you cannot only use one variable
+	//so you need two variables
+	firstname1, secondname1 := getInitial("tifa lockhart")
+	fmt.Println(firstname1, secondname1)
+
+	firstname2, secondname2 := getInitial("cloud strife")
+	fmt.Println(firstname2, secondname2)
+
+	firstname3, secondname3 := getInitial("cloud")
+	fmt.Println(firstname3, secondname3)
+
+}
+
+//function with return value
+func circleArea(r float64) float64 {
+	return math.Pi * r * r
+}
+
+//function
+func sayGreeting(n string) {
+	fmt.Printf("Good morning %v\n", n)
+}
+
+func sayBye(n string) {
+	fmt.Printf("Goodbye %v\n", n)
+}
+
+//function with multiple arguement
+//note: we can also pass function in as arguement to another function
+/*
+this func(string) must take in string as that arguement which matches
+the function that has string arguement in this case, sayGreeting or
+sayBye can be passed in
+*/
+func cycleNames(n []string, f func(string)) {
+	for _, value := range n {
+		f(value) //call the function for each element inside the slice
+	}
+}
+
+//function that return multiple values
+func getInitial(n string) (string, string) { //return multiple values using extra parenthesis to write down the type of each returned value
+	s := strings.ToUpper(n)
+	names := strings.Split(s, " ") //split the name wherever there is a space [tifa, lockhart]
+
+	var initials []string
+	for _, value := range names {
+		initials = append(initials, value[:1]) //get the initial for each element (value)
+	}
+
+	if len(initials) > 1 {
+		return initials[0], initials[1] //return multiple values
+	}
+
+	return initials[0], "_" //if the length of the slice initials is smaller than one
 }
