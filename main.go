@@ -35,4 +35,51 @@ func main() {
 		you are exporting
 	*/
 	fmt.Println("Hello, Golang") //fmt method
+
+	//variables
+	// remember every variable that is declared must be used, otherwise, it will cause an error
+	//String
+	var nameOne string = "mario"
+	var nameTwo = "luigi"
+	var nameThree string
+
+	fmt.Println(nameOne, nameTwo, nameThree) //nameThree by default is empty since no value assigned
+
+	//you can change the variable values
+	nameOne = "peach"
+	nameTwo = "bowser"
+	nameThree = "anything"
+
+	fmt.Println(nameOne, nameTwo, nameThree)
+
+	//only use this when initializing the variable for the first time
+	nameFour := "yoshi"
+	fmt.Println(nameFour)
+
+	//numbers - integer, float
+	//you can specify the bit size for integer or float variations
+	//the larger number we use for the variable, the higher number of bits you need
+	//there will be a specfic range of numbers that we can use when we talk about the bit size
+	//integer
+	var ageOne int = 20
+	var ageTwo = 30
+	var ageThree int //by default is 0 for integer
+	ageFour := 40
+	fmt.Println(ageOne, ageTwo, ageThree, ageFour)
+
+	//bits & memory
+	var numOne int8 = 25    //8 bits
+	var numTwo uint = 25    //unsigned int, which means you cannot have negative number
+	var numThree uint8 = 25 //you can also specify bit size for unsigned number, but now you can go beyond the range that specified in signned number because you are not including minuses
+
+	fmt.Println(numOne, numTwo, numThree)
+
+	//float
+	//unlike integers, you have to specify the bit size which dictates the range of numbers you can use
+	var scoreOne float32 = -1.5
+	var scoreTwo float64 = 223334455.98 //for the most part, float64 is going to be used because it has a slightly higher precision
+	scoreThree := 1.5                   //in fact, if you use the operator :=, float64 will be default type
+
+	fmt.Println(scoreOne, scoreTwo, scoreThree)
+
 }
