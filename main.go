@@ -1,3 +1,5 @@
+package main //every go file will be part of a package which is a collection of files and codes
+
 //usually call the entry file as main.go
 //here is the demo code from golang website
 
@@ -9,7 +11,6 @@ if you are making some kind of shared library or utility code that could be used
 depending on what you are making, something that describes that library or code
 in this case, main package is called since we are making a program to run on the computer
 */
-package main //every go file will be part of a package which is a collection of files and codes
 
 /*
 the standard library contains packages for all kinds of different functionality
@@ -20,6 +21,9 @@ import (
 	"math"
 	"strings"
 )
+
+//package scope variable
+var score = 99.5
 
 //function declaration
 //main() is the entry point of the application
@@ -188,6 +192,11 @@ func main() {
 
 	firstname3, secondname3 := getInitial("cloud")
 	fmt.Println(firstname3, secondname3)
+
+	//call function from the other file
+	sayHello("mario")
+
+	showScore()
 
 }
 
