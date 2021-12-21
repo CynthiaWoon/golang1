@@ -125,4 +125,39 @@ func main() {
 	//you can append these ranges as well because they are stored as slices
 	rangeOne = append(rangeOne, "koopa")
 	fmt.Println(rangeOne)
+
+	//loop
+	x := 0
+
+	//while loop
+	for x < 5 { //while x is less than 5
+		fmt.Println("value of x is:", x)
+		x++ //add one to x
+	}
+
+	//traditional for loop
+	for i := 0; i < 5; i++ {
+		fmt.Println("value of i is:", i)
+	}
+
+	//loop through a slice
+	for i := 0; i < len(names); i++ {
+		fmt.Println(names[i])
+	}
+
+	//for end loop
+	/*
+		cycle through the slice, and each time go around the slice,
+		get the index(position) element and the value at that index
+	*/
+	for index, value := range names {
+		fmt.Printf("the value at index %v is %v\n", index, value)
+	}
+	/*
+		note: if you just wanna print the value but not index, you can replace the index with _
+		e.g., for _, value
+		and vice versa
+		e.g., for index, _ (if you just want to use the index)
+	*/
+
 }
