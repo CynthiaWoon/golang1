@@ -82,4 +82,8 @@ func main() {
 
 	fmt.Println(scoreOne, scoreTwo, scoreThree)
 
+	//Sprintf (can save formatted strings)
+	var str = fmt.Sprintf("my age is %v and my name is %v \n", 35, "Nobody") //return formatted string and stored into the variable
+	fmt.Println("the saved string is", str)
+
 }
