@@ -279,6 +279,24 @@ func main() {
 	//you can pass the pointer into the function
 	updateThirdName(m) //if you hover it, you see the type for m variable is *string which means a pointer that point to a string
 	fmt.Println("the value is updated after the function: ", name)
+
+	//struc object
+	mybill := newBill("mario's bill")
+
+	fmt.Printf("\nreceiver function without pointer: \n")
+	fmt.Println(mybill.format())
+
+	mybill.updateTip(10)
+	mybill.addItem("noodle soup", 5.99)
+	mybill.addItem("arabic chicken", 9.99)
+	mybill.addItem("corndog", 3.99)
+
+	fmt.Printf("\nreceiver function with pointer: \n")
+	fmt.Println(mybill.newFormat())
+
+	mybill.updateTip(15)
+	fmt.Println(mybill.newFormat())
+
 }
 
 func updateMenu(y map[string]float64) {
