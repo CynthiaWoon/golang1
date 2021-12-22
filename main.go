@@ -238,8 +238,8 @@ func main() {
 	fmt.Println(name)
 
 	//if you really want to update the original variable
-	name = updateSecName(name) //return the value from the function and overwrite the variable value
-	fmt.Println(name)
+	//name = updateSecName(name) //return the value from the function and overwrite the variable value
+	//fmt.Println(name) //this will print out the value "wedge"
 
 	//group 2 types (pointer wrapper values) -> maps, slices, functions
 	newMenu := map[string]float64{
@@ -250,6 +250,35 @@ func main() {
 	updateMenu(newMenu) //the new element from the function is added in the map which change the original value of map
 	fmt.Println(newMenu)
 
+	//pointer
+	//you can create your pointer manually to point it to the memory location where the data stored
+	//by doing this below, you gonna see the memory location that this points to
+	fmt.Println("memory address of name is: ", &name) //use & to get the pointer to point to name variable memory location
+
+	//we can store the pointer in a variable if we want to
+	//store the pointer in m variable, now this pointer is stored in its own memory block, so it has its own memory address,
+	//but it is storing the memory address of the variable that it points to
+	/*
+		|--name--|---m---|
+		| 0x001  | 0x002 |
+		|--------|-------|
+		| "tifa" | p0x001| <- m memory block stores the name variable memory location
+		|--------|-------|    so that it could point to the name variable memory location
+	*/
+	m := &name
+	//if you print the m, the memory address of name is going to be the same as the one print above
+	fmt.Println("memory address of name is: ", m)
+
+	//if we have a pointer like the m variable above, we can de-reference it to get the value at the
+	//memory address it points to, the way we do this is by placing * in front of the m variable
+	//the statement below, *m is going to output "tifa" since the pointer is pointing to the name variable
+	//that has the "tifa" value
+	fmt.Println("value at memory address", *m)
+
+	fmt.Println("the value before the function called: ", name)
+	//you can pass the pointer into the function
+	updateThirdName(m) //if you hover it, you see the type for m variable is *string which means a pointer that point to a string
+	fmt.Println("the value is updated after the function: ", name)
 }
 
 func updateMenu(y map[string]float64) {
@@ -263,6 +292,13 @@ func updateName(x string) {
 func updateSecName(x string) string {
 	x = "wedge"
 	return x
+}
+
+//the x here is the pointer, and the type is *string
+func updateThirdName(x *string) { //it is going to be *string because you pass the pointer into the function
+	//then you want to de-reference the pointer to get the value of the memory location that it points to
+	//and then you can update the value in that memory block that the pointer points to
+	*x = "wedge"
 }
 
 //function with return value
