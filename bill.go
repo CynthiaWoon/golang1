@@ -2,7 +2,10 @@
 //you do not use classes in go but instead you are using struct to define a object
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"os"
+)
 
 /*
 to make this custom struct type, write "type" to make a new type
@@ -91,4 +94,21 @@ func (b *bill) updateTip(tip float64) {
 
 func (b *bill) addItem(name string, price float64) {
 	b.items[name] = price
+}
+
+//save
+func (b *bill) save() {
+	//when save data to a file, need to save data into slice of byte format
+	data := []byte(b.format()) //turn the formatted string into a byte slice
+
+	//use os.WriteFile
+	//three arguement to store the file
+	//1. the location to store the file
+	//2. data that you want to store
+	//3. the permission
+	err := os.WriteFile("bills/"+b.name+".txt", data, 0644) //this will return an error if there is one
+	if err != nil {
+		panic(err) //to stop the flow of the program and print out the error
+	}
+	fmt.Println("bill was saved to file")
 }

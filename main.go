@@ -17,8 +17,11 @@ the standard library contains packages for all kinds of different functionality
 fmt package if for formatting string and printing the messages to console
 */
 import (
+	"bufio"
 	"fmt" //importing packages from the go standard library
 	"math"
+	"os"
+	"strconv"
 	"strings"
 )
 
@@ -297,6 +300,79 @@ func main() {
 	mybill.updateTip(15)
 	fmt.Println(mybill.newFormat())
 
+	//prompt user input
+	secondBill := createBill()
+	fmt.Println(secondBill)
+
+}
+
+func promptOption(b bill) {
+	reader := bufio.NewReader(os.Stdin)
+
+	option, _ := getInput("Choose option (a - add item, s - save bill, t - add tip)", reader)
+
+	switch option {
+	case "a":
+		name, _ := getInput("Item name: ", reader)
+		price, _ := getInput("Item price: ", reader)
+
+		//strconv to do the conversion for strings
+		p, err := strconv.ParseFloat(price, 64) //need to specify which bit size of float
+		if err != nil {
+			fmt.Println("The price must be a number")
+			promptOption(b)
+		}
+		b.addItem(name, p)
+
+		fmt.Println("Item added - ", name, price)
+		promptOption(b)
+
+	case "t":
+		tip, _ := getInput("Tip: ", reader)
+
+		//strconv to do the conversion for strings
+		t, err := strconv.ParseFloat(tip, 64) //need to specify which bit size of float
+		if err != nil {
+			fmt.Println("The tip must be a number")
+			promptOption(b)
+		}
+		b.updateTip(t)
+
+		fmt.Println("Tip added - ", t)
+		promptOption(b)
+
+	case "s":
+		b.save()
+		fmt.Println("The file is saved - ", b.name)
+
+	default:
+		fmt.Println("That was not a valid option...")
+		//use back the promptOption function to go back to the top to prompt the user enter the option again
+		promptOption(b)
+	}
+}
+
+//reader is the pointer type that points to bufio.Reader
+//it is going to be multiple returned value because bufio reader
+//return multiple values
+func getInput(prompt string, r *bufio.Reader) (string, error) {
+	fmt.Print(prompt)
+	input, err := r.ReadString('\n') //get the user input after the users enter to the next line
+
+	//trim the excess spaces in the variable
+	return strings.TrimSpace(input), err
+}
+
+func createBill() bill {
+	reader := bufio.NewReader(os.Stdin)
+	name, _ := getInput("Create a new bill name: ", reader)
+
+	b := newBill(name)
+	fmt.Println("Created the bill - ", b.name)
+
+	promptOption(b)
+
+	return b
 }
 
 func updateMenu(y map[string]float64) {
